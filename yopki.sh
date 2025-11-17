@@ -1,13 +1,13 @@
 hyprctl dispatch workspace 3
 sleep 0.5
 
-uwsm app -- "$TERMINAL" -e zsh -c 'nvim ~/yopki/trip-planner-web' &
+uwsm app -- "$TERMINAL" -e tmux new-session -A -s yopki-front 'cd ~/yopki/trip-planner-web && nvim; exec zsh' &
 sleep 0.8
 
 hyprctl dispatch workspace 4
 sleep 0.5
 
-uwsm app -- "$TERMINAL" -e zsh -c 'nvim ~/yopki/trip-planner-backend' &
+uwsm app -- "$TERMINAL" -e tmux new-session -A -s yopki-back 'cd ~/yopki/trip-planner-backend && nvim; exec zsh' &
 sleep 0.8
 
 hyprctl dispatch workspace 5

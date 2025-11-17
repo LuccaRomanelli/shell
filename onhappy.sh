@@ -1,13 +1,13 @@
 hyprctl dispatch workspace 3
 sleep 0.5
 
-uwsm app -- "$TERMINAL" -e zsh -c 'nvim ~/onhappy/onhappy-frontend/' &
+uwsm app -- "$TERMINAL" -e tmux new-session -A -s onhappy-front 'cd ~/onhappy/onhappy-frontend && nvim; exec zsh' &
 sleep 0.8
 
 hyprctl dispatch workspace 4
 sleep 0.5
 
-uwsm app -- "$TERMINAL" -e zsh -c 'nvim ~/onhappy/onhappy-backend/' &
+uwsm app -- "$TERMINAL" -e tmux new-session -A -s onhappy-back 'cd ~/onhappy/onhappy-backend && nvim; exec zsh' &
 sleep 0.8
 
 hyprctl dispatch workspace 5
