@@ -1,7 +1,10 @@
+sleep 0.2
 hyprctl dispatch workspace 1
 sleep 0.5
 
 omarchy-launch-webapp 'https://apps.abacus.ai/chatllm/' &
+sleep 0.5
+omarchy-launch-webapp 'https://youtube.com/' &
 sleep 1.2
 
 hyprctl dispatch workspace 2
