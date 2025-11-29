@@ -44,3 +44,4 @@ omarchy-theme-set-obsidian
 
 # Call hook on theme set
 omarchy-hook theme-set "$THEME_NAME"
+theme-hook-update
