@@ -18,8 +18,8 @@ sleep 0.8
 hyprctl dispatch workspace 5
 sleep 0.5
 
-uwsm app -- "$TERMINAL" --command zsh -ic 'cd ~/yopki/trip-planner-backend && docker ps -q | xargs -r docker stop && docker start $(docker ps -aq -f "name=^trip-") && pnpm run dev; exec zsh' &
+uwsm app -- "$TERMINAL" --command zsh -ic 'cd ~/yopki/trip-planner-backend && docker ps -q | xargs -r docker stop && docker start $(docker ps -aq -f "name=^trip-") && pnpm run dev; zsh' &
 
-uwsm app -- "$TERMINAL" --command zsh -ic 'cd ~/yopki/trip-planner-web/ && npm run dev; exec zsh' &
+uwsm app -- "$TERMINAL" --command zsh -ic 'cd ~/yopki/trip-planner-web/ && npm run dev; zsh' &
 
-uwsm app -- "$TERMINAL" --command zsh -ic 'cd ~/yopki/trip-planner-web/packages/core/ && npm run build:watch; exec zsh' &
+uwsm app -- "$TERMINAL" --command zsh -ic 'cd ~/yopki/trip-planner-web/packages/core/ && npm run build:watch; zsh' &
