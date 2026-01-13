@@ -57,6 +57,15 @@ else
 fi
 
 echo "Convertendo: $MD_PATH -> $PDF_PATH" >&2
-pandoc "$MD_PATH" -o "$PDF_PATH" --pdf-engine="$PDF_ENGINE"
+pandoc "$MD_PATH" -o "$PDF_PATH" \
+  --pdf-engine="$PDF_ENGINE" \
+  -V geometry:margin=1.5cm \
+  -V geometry:a4paper \
+  -V mainfont="DejaVu Sans" \
+  -V sansfont="DejaVu Sans" \
+  -V monofont="DejaVu Sans Mono" \
+  -V fontsize=10pt \
+  -V colorlinks=true \
+  --columns=120
 
 echo "$PDF_PATH"
