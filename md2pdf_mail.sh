@@ -8,6 +8,8 @@ usage() {
   cat <<'EOF'
 Uso:
   md2pdf_mail.sh <arquivo.md> [assunto] [destinatario]
+  md2pdf_mail.sh <arquivo.md>... [-- assunto] [-- destinatario]
+  md2pdf_mail.sh *.md                    # envia todos os arquivos .md
 
 Converte um arquivo Markdown para PDF e envia por email.
 
@@ -24,11 +26,28 @@ Exemplos:
   md2pdf_mail.sh README.md
   md2pdf_mail.sh notas.md "Notas da reunião"
   md2pdf_mail.sh doc.md "PDF gerado" "alguem@dominio.com"
+  md2pdf_mail.sh *.md
 EOF
 }
 
 if [[ "${1:-}" == "-h" || "${1:-}" == "--help" || $# -lt 1 ]]; then
   usage
+  exit 0
+fi
+
+# Detect multi-file mode: all args are .md files
+is_multi_file() {
+  [[ $# -gt 1 ]] || return 1
+  for arg in "$@"; do
+    [[ "$arg" == *.md && -f "$arg" ]] || return 1
+  done
+  return 0
+}
+
+if is_multi_file "$@"; then
+  for md in "$@"; do
+    "$0" "$md"  # recursive call for each file
+  done
   exit 0
 fi
 
