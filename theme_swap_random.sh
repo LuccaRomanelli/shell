@@ -35,13 +35,10 @@ pkill -SIGUSR2 btop
 makoctl reload
 
 # Change gnome, browser, vscode, cursor themes
-omarchy-theme-set-terminal
 omarchy-theme-set-gnome
 omarchy-theme-set-browser
 omarchy-theme-set-vscode
-omarchy-theme-set-cursor
 omarchy-theme-set-obsidian
 
 # Call hook on theme set
 omarchy-hook theme-set "$THEME_NAME"
-theme-hook-update
