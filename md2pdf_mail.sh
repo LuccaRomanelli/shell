@@ -61,10 +61,12 @@ if [[ ! -f "$MD_PATH" ]]; then
   exit 1
 fi
 
-PDF_TMP="$(mktemp -t md2pdf_XXXXXX.pdf)"
+TMP_DIR="$(mktemp -d -t md2pdf_XXXXXX)"
+MD_BASE="$(basename "${MD_PATH%.*}")"
+PDF_TMP="${TMP_DIR}/${MD_BASE}.pdf"
 
 cleanup() {
-  rm -f "$PDF_TMP"
+  rm -rf "$TMP_DIR"
 }
 trap cleanup EXIT
 
