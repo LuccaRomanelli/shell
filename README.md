@@ -1,46 +1,48 @@
-# Shell Scripts Collection
+# Shell Scripts
 
-A collection of shell scripts for Hyprland workspace management, productivity automation, and document processing.
+Shell scripts for automating Hyprland workspace management, development environments, and daily productivity.
 
 ## Scripts
 
-### Workspace & Desktop
+### Workspace & Environment
 
 | Script | Description |
-|--------|-------------|
-| `start.sh` | Launches productivity apps across Hyprland workspaces (browser, chat apps, project management tools) |
-| `theme_swap_random.sh` | Randomly selects and applies a theme from `~/.config/omarchy/themes/` |
+|---|---|
+| `start.sh` | Launches productivity apps across Hyprland workspaces: Abacus AI chat, YouTube, browser, WhatsApp, ClickUp, and Google Sheets |
+| `yopki.sh` | Sets up the Yopki dev environment: nvim for frontend (ws 3) and backend (ws 4), Docker + dev servers (ws 5) |
+| `theme_swap_random.sh` | Randomly picks and applies a theme from `~/.config/omarchy/themes/` |
 
-### Productivity (Neovim Integration)
-
-| Script | Description |
-|--------|-------------|
-| `todo.sh` | Opens the todo list in Neovim using the `todo` Lua module |
-| `todoadd.sh <task>` | Adds a task to the todo list via Neovim |
-| `zet.sh <title>` | Creates a new Zettelkasten note via Neovim |
-
-### Document Processing
+### Productivity
 
 | Script | Description |
-|--------|-------------|
-| `md2pdf.sh <file.md> [output.pdf]` | Converts Markdown to PDF using pandoc with xelatex |
-| `mail_file.sh <file> [subject] [recipient]` | Sends a file as an email attachment |
-| `md2pdf_mail.sh <file.md> [subject] [recipient]` | Converts Markdown to PDF and sends it via email |
+|---|---|
+| `pomo.sh` | Pomodoro timer with classic (25/5) and deep (50/10) modes, session logging to JSON, Obsidian markdown integration, Waybar status, and weekly stats via `fzf` menus |
+| `todo.sh` | Opens a todo list in nvim. Usage: `todo.sh [personal\|work\|vanta]` |
+| `todoadd.sh` | Adds a task to a todo list from the CLI. Usage: `todoadd [work\|vanta] <task>` |
+| `zet.sh` | Creates a Zettelkasten note and opens it in nvim. Usage: `zet <title>` |
+| `ask.sh` | Quick CLI question to Claude (haiku model). Usage: `? <question>` |
 
-### AI Assistant
+### Documents & Email
 
 | Script | Description |
-|--------|-------------|
-| `ask.sh <question>` | Quick AI question using Claude CLI (haiku model) |
+|---|---|
+| `md2pdf.sh` | Converts Markdown to PDF using pandoc + xelatex |
+| `mail_file.sh` | Sends files as email attachments (supports mutt, mailx, sendmail) |
+| `md2pdf_mail.sh` | Converts Markdown files to PDF and emails them. Supports batch processing |
 
 ## Dependencies
 
-- **Hyprland** - Wayland compositor (for workspace scripts)
-- **omarchy-\*** commands - Custom Hyprland automation tools
-- **pandoc** + **xelatex** - Document conversion
-- **mutt/mailx/sendmail** - Email sending
-- **Neovim** - Editor with custom Lua modules (`todo`, `zet`)
-- **Claude CLI** - AI assistant
+- **Hyprland** + `hyprctl` — tiling Wayland compositor
+- **omarchy** commands — `omarchy-launch-webapp`, `omarchy-launch-or-focus-webapp`, `omarchy-launch-browser`, `omarchy-theme-set`
+- **uwsm** — user-level session manager (terminal launching)
+- **pandoc** + **xelatex** (`texlive`) — Markdown to PDF conversion
+- **jq** — JSON processing (used by `pomo.sh`)
+- **fzf** — fuzzy finder (used by `pomo.sh`)
+- **Docker** — container management (used by `yopki.sh`)
+- **nvim** — Neovim with custom Lua modules (`todo`, `zet`)
+- **claude** CLI — Anthropic's Claude Code (used by `ask.sh`)
+- **notify-send** — desktop notifications (used by `pomo.sh`)
+- Mail tools: **mutt**, **mailx**, or **sendmail** (used by `mail_file.sh`)
 
 ## Usage Examples
 
@@ -59,8 +61,27 @@ A collection of shell scripts for Hyprland workspace management, productivity au
 
 # Create a Zettelkasten note
 ./zet.sh "Project Ideas"
+
+# Start a pomodoro session
+./pomo.sh
 ```
 
-## License
+## Using Individual Scripts
 
-Personal use scripts - no license specified.
+To use a single script without cloning the entire repo:
+
+```bash
+# Download a specific script
+curl -O https://raw.githubusercontent.com/<user>/shell/main/<script>.sh
+chmod +x <script>.sh
+```
+
+Or clone only what you need with a sparse checkout:
+
+```bash
+git clone --no-checkout https://github.com/<user>/shell.git
+cd shell
+git sparse-checkout init --cone
+git sparse-checkout set pomo.sh todo.sh  # pick the scripts you want
+git checkout
+```
