@@ -13,5 +13,5 @@ if [ -z "$1" ]; then
   exit 1
 fi
 
-task="$*"
-nvim -c "lua require('todo').add_task('$task', '$TYPE')" -c "quit"
+export TODO_TASK="$*"
+nvim --headless -c "lua require('todo').add_task(vim.env.TODO_TASK, '$TYPE')" -c "quit"
